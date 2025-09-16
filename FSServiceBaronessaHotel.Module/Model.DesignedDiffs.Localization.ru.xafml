@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Company="ООО &quot;ФС Сервис&quot;" Copyright="ООО &quot;ФС Сервис&quot;">
   <ActionDesign>
     <Actions>
       <Action Id="CalculateTotalAmount" Caption="Пересчитать сумму" />
@@ -7,6 +7,27 @@
     </Actions>
   </ActionDesign>
   <BOModel>
+    <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters">
+      <OwnMembers>
+        <Member Name="Password" Caption="Пароль" />
+        <Member Name="UserName" Caption="Имя пользователя" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Security.ResetPasswordParameters">
+      <OwnMembers>
+        <Member Name="Password" Caption="Пароль" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.ModelDifference">
+      <OwnMembers>
+        <Member Name="UserName" Caption="Имя пользователя" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.PermissionPolicy.PermissionPolicyUser">
+      <OwnMembers>
+        <Member Name="UserName" Caption="Имя пользователя" />
+      </OwnMembers>
+    </Class>
     <Class Name="FSServiceBaronessaHotel.Module.BusinessObjects.Booking" Caption="Бронирование">
       <OwnMembers>
         <Member Name="CheckInDate" Caption="Дата заселения" />
@@ -63,6 +84,14 @@
     <LocalizationGroup Name="Captions">
       <LocalizationItem Name="View" Value="View" />
     </LocalizationGroup>
+    <LocalizationGroup Name="Exceptions">
+      <LocalizationGroup Name="UserVisibleExceptions">
+        <LocalizationGroup Name="Security">
+          <LocalizationItem Name="LoginFailed" Value="Не удалось войти для '{0}'. {1}" />
+          <LocalizationItem Name="RetypeTheInformation" Value="Имя пользователя или пароль неправильные!" />
+        </LocalizationGroup>
+      </LocalizationGroup>
+    </LocalizationGroup>
   </Localization>
   <Validation>
     <Rules>
@@ -79,8 +108,16 @@
   <Views>
     <DetailView Id="AuthenticationStandardLogonParameters_Blazor_DetailView" Caption="Вход" />
     <DetailView Id="AuthenticationStandardLogonParameters_DetailView" Caption="Вход" />
-    <DetailView Id="AuthenticationStandardLogonParameters_Win_DetailView" Caption="Вход" />
+    <DetailView Id="AuthenticationStandardLogonParameters_Win_DetailView" Caption="Вход">
+      <Items>
+        <StaticText Id="LogonText" Text="&lt;size=14&gt;Войдите в свой аккаунт&lt;/size&gt;" />
+      </Items>
+    </DetailView>
     <DetailView Id="NoPasswordLogonParameters_DetailView" Caption="Вход" />
-    <DetailView Id="NoPasswordLogonParameters_Win_DetailView" Caption="Вход" />
+    <DetailView Id="NoPasswordLogonParameters_Win_DetailView" Caption="Вход">
+      <Items>
+        <StaticText Id="LogonText" Text="&lt;size=14&gt;Войдите в свой аккаунт&lt;/size&gt;" />
+      </Items>
+    </DetailView>
   </Views>
 </Application>

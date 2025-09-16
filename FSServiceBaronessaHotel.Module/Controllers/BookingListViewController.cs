@@ -33,21 +33,31 @@ namespace FSServiceBaronessaHotel.Module.Controllers
         private void TotalAmountAction_Execute(object sender, ParametrizedActionExecuteEventArgs e)
         {
             int sumTotal = 0;
+            MessageOptions options = new MessageOptions();
             using (IObjectSpace os = Application.CreateObjectSpace(typeof(Booking))) {
                 var all = os.GetObjects<Booking>();
-                foreach (Booking booking in all)
+                if (e.ParameterCurrentValue != null)
                 {
-                    if (booking.CheckInDate.Month == ((DateTime)e.ParameterCurrentValue).Month &&
-                        booking.CheckInDate.Year == ((DateTime)e.ParameterCurrentValue).Year)
-                        sumTotal += booking.TotalAmount;
+                    foreach (Booking booking in all)
+                    {
+                        if (booking.CheckInDate.Month == ((DateTime)e.ParameterCurrentValue).Month &&
+                            booking.CheckInDate.Year == ((DateTime)e.ParameterCurrentValue).Year)
+                            sumTotal += booking.TotalAmount;
+                    }
+                    options.Type = InformationType.Success;
+                    options.Win.Caption = "Успешно";
+                }
+                else
+                {
+                    options.Type = InformationType.Error;
+                    options.Win.Caption = "Ошибка";
                 }
             }
-            MessageOptions options = new MessageOptions();
             options.Duration = 2000;
             options.Message = string.Format("В этом месяце {0}!", sumTotal);
             options.Type = InformationType.Success;
             options.Web.Position = InformationPosition.Right;
-            options.Win.Caption = "Успешно";
+            
             options.Win.Type = WinMessageType.Toast;
             Application.ShowViewStrategy.ShowMessage(options);
         }
